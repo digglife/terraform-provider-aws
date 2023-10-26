@@ -1462,6 +1462,9 @@ func resourceProjectUpdate(ctx context.Context, d *schema.ResourceData, meta int
 
 		if d.HasChange("build_batch_config") {
 			input.BuildBatchConfig = expandBuildBatchConfig(d)
+			if input.BuildBatchConfig == nil {
+				input.BuildBatchConfig = &codebuild.ProjectBuildBatchConfig{}
+			}
 		}
 
 		if d.HasChange("cache") {
