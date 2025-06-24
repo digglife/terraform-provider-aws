@@ -500,6 +500,12 @@ func resourceDistribution() *schema.Resource {
 						"path_pattern": {
 							Type:     schema.TypeString,
 							Required: true,
+							DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+								if d.HasChange("ordered_cache_behavior") {
+									return false
+								}
+								return old == new
+							},
 						},
 						"realtime_log_config_arn": {
 							Type:         schema.TypeString,
